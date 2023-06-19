@@ -31,6 +31,8 @@ git clone https://github.com/baguilar6174/flutter-forms-app.git
 - Equatable
 - Events
 - State
+- Forms & TextFormField
+- Custom Data Input fields
 
 ## Forms applicacion
 

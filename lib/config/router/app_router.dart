@@ -16,5 +16,9 @@ final appRouter = GoRouter(
       path: '/bloc',
       builder: (context, state) => const BlocCounterPage(),
     ),
+    GoRoute(
+      path: '/forms',
+      builder: (context, state) => const FormsPage(),
+    ),
   ],
 );
