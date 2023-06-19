@@ -42,7 +42,7 @@ class _CubitCounterView extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: BlocBuilder<CounterCubit, CounterState>(
+        child: BlocBuilder<CounterCubit, CounterStateCubit>(
           builder: (context, state) {
             return Text('Counter value: ${state.counter}');
           },

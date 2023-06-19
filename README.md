@@ -1,5 +1,5 @@
 # Forms applicacion
-This application contains basic exercises and forms management using Bloc.
+This application contains basic exercises and forms management using Bloc and Cubit.
 
 ## Android platform overview
 

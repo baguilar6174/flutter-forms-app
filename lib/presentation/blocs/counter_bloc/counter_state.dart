@@ -1,13 +1,13 @@
-part of 'counter_cubit.dart';
+part of 'counter_bloc.dart';
 
-class CounterStateCubit extends Equatable {
+class CounterStateBloc extends Equatable {
   final int counter;
   final int transactionCounter;
 
-  const CounterStateCubit({this.counter = 0, this.transactionCounter = 0});
+  const CounterStateBloc({this.counter = 0, this.transactionCounter = 0});
 
   copyWith({int? counter, int? transactionCounter}) {
-    return CounterStateCubit(
+    return CounterStateBloc(
       counter: counter ?? this.counter,
       transactionCounter: transactionCounter ?? this.transactionCounter,
     );
