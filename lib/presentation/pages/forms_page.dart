@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_forms_app/presentation/presentation.dart';
 
@@ -9,7 +10,10 @@ class FormsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Forms')),
-      body: const _FormView(),
+      body: BlocProvider(
+        create: (context) => FormCubit(),
+        child: const _FormView(),
+      ),
     );
   }
 }
@@ -36,65 +40,41 @@ class _FormView extends StatelessWidget {
   }
 }
 
-class _RegisterForm extends StatefulWidget {
+class _RegisterForm extends StatelessWidget {
   const _RegisterForm();
 
   @override
-  State<_RegisterForm> createState() => _RegisterFormState();
-}
-
-class _RegisterFormState extends State<_RegisterForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  String username = '';
-  String email = '';
-  String password = '';
-
-  @override
   Widget build(BuildContext context) {
+    final formCubit = context.watch<FormCubit>();
+    final username = formCubit.state.username;
+    final password = formCubit.state.password;
+    final email = formCubit.state.email;
+
     return Form(
-      key: _formKey,
       child: Column(
         children: [
           CustomTextFormField(
             label: 'Username',
-            onChanged: (value) => username = value,
-            validator: (value) {
-              if (value == null || value.isEmpty) return 'Required';
-              if (value.trim().isEmpty) return 'Required';
-              if (value.length < 6) return 'At least 6 letters';
-              return null;
-            },
+            onChanged: formCubit.usernameChanged,
+            errorText: username.errorMessage,
           ),
           const SizedBox(height: 20),
           CustomTextFormField(
             label: 'Email',
-            onChanged: (value) => email = value,
-            validator: (value) {
-              if (value == null || value.isEmpty) return 'Required';
-              if (value.trim().isEmpty) return 'Required';
-              final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-              if (!emailRegExp.hasMatch(value)) return 'Email required';
-              return null;
-            },
+            onChanged: formCubit.emailChanged,
+            errorText: email.errorMessage,
           ),
           const SizedBox(height: 20),
           CustomTextFormField(
             label: 'Password',
             obscureText: true,
-            onChanged: (value) => password = value,
-            validator: (value) {
-              if (value == null || value.isEmpty) return 'Required';
-              if (value.trim().isEmpty) return 'Required';
-              if (value.length < 6) return 'At least 6 letters';
-              return null;
-            },
+            onChanged: formCubit.passwordChanged,
+            errorText: password.errorMessage,
           ),
           const SizedBox(height: 20),
           FilledButton.tonalIcon(
             onPressed: () {
-              final isValid = _formKey.currentState!.validate();
-              if (!isValid) return;
+              formCubit.onSubmit();
             },
             icon: const Icon(Icons.save_as_sharp),
             label: const Text('Submit'),

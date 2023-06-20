@@ -23,6 +23,7 @@ git clone https://github.com/baguilar6174/flutter-forms-app.git
 * `go_router: ^6.0.5` Routes management
 * `flutter_bloc: ^8.1.3` BLoC State management
 * `equatable: ^2.0.5` Being able to compare objects in Dart
+* `formz: ^0.6.0` A unified form representation in Dart
 
 ## What I learned
 
